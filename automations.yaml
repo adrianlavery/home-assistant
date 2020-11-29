@@ -1,0 +1,84 @@
+- id: '1606685912346'
+  alias: Doorbell ring - Front hall lights
+  description: ''
+  trigger:
+  - type: occupied
+    platform: device
+    device_id: 6faac7ee724b9344fe2994adf4b5bc96
+    entity_id: binary_sensor.front_door_ding
+    domain: binary_sensor
+  condition:
+  - condition: and
+    conditions:
+    - condition: sun
+      before: sunrise
+      after: sunset
+  action:
+  - type: turn_on
+    device_id: 0b349b3dfbac900ae31d00a8e86f7f6b
+    entity_id: light.hue_ambiance_lamp_1_4
+    domain: light
+  - delay: '120'
+  - type: turn_off
+    device_id: 0b349b3dfbac900ae31d00a8e86f7f6b
+    entity_id: light.hue_ambiance_lamp_1_4
+    domain: light
+  mode: single
+- id: '1606686571851'
+  alias: Front door detect motion - lights on bright
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 6faac7ee724b9344fe2994adf4b5bc96
+    entity_id: binary_sensor.front_door_motion
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+  condition:
+  - condition: sun
+    before: sunrise
+    after: sunset
+  action:
+  - type: turn_on
+    device_id: 4b9a2752f77f31411e9d8342efd819b3
+    entity_id: light.front_porch_1
+    domain: light
+    brightness_pct: 100
+  - type: turn_on
+    device_id: 04e0fec953edf46f86bf058e55ec229a
+    entity_id: light.hue_ambiance_lamp_2
+    domain: light
+    brightness_pct: 100
+  mode: single
+- id: '1606686723026'
+  alias: Front door no motion - lights dimmed
+  description: ''
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: 6faac7ee724b9344fe2994adf4b5bc96
+    entity_id: binary_sensor.front_door_motion
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+  condition:
+  - condition: sun
+    before: sunrise
+    after: sunset
+  action:
+  - type: turn_on
+    device_id: 4b9a2752f77f31411e9d8342efd819b3
+    entity_id: light.front_porch_1
+    domain: light
+    brightness_pct: 50
+  - type: turn_on
+    device_id: 04e0fec953edf46f86bf058e55ec229a
+    entity_id: light.hue_ambiance_lamp_2
+    domain: light
+    brightness_pct: 50
+  mode: single
