@@ -1,4 +1,4 @@
-# My template repository
+# Home Assistant
 > codespaces are awesome!
 
 This repo contains a default devcontainer including the tools I use most often.
